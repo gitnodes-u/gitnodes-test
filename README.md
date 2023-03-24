@@ -1,3 +1,3 @@
-# gitnode-test
+# GitNodes test
 
-GitNodes test.
+GitNodes test
