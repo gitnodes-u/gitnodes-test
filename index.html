@@ -53,13 +53,13 @@
                     }
                 })
                 .then((data) => {
-                    const content = data;
+                    gitNodeData = data;
 
-                    $("#node-id").val(content.id);
-                    $("#node-name").val(content.name);
-                    $("#node-type").val(content.type);
-                    $("#node-picture-url").val(content.picture);
-                    $("#node-description").val(content.description);
+                    $("#node-id").val(gitNodeData.id);
+                    $("#node-name").val(gitNodeData.name);
+                    $("#node-type").val(gitNodeData.type);
+                    $("#node-picture-url").val(gitNodeData.picture);
+                    $("#node-description").val(gitNodeData.description);
                 })
                 .catch((error) => {
                     console.error("Error fetching data:", error);
