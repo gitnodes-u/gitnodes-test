@@ -116,6 +116,7 @@
             const base64Content = btoa(JSON.stringify(content, null, 2));
 
             console.log("Access token 2:", accessToken);
+            console.log("gitNodeJsonUrl", gitNodeJsonUrl);
 
             // get current file info (needed to update the file)
             const fileInfoResponse = await fetch(gitNodeJsonUrl, {
