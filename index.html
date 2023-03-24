@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitNodes Editor</title>
+    <title>GitNodes Test Node</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
+
 <body>
     <div class="container mt-5">
         <h2>GitNodes Editor</h2>
@@ -37,15 +39,12 @@
         </form>
     </div>
     <script>
-        // fetches and displays data from gitnodes.json in the node repository
-        function fetchData() {
-            // The owner and repository name should be set according to your specific repository
-            const owner = "gitnodes-u";
-            const repo = "gitnodes-test";
-            const fileName = "gitnodes.json";
-            const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${fileName}`;
+        const gitNodeData = {};
+        const accessToken = '';
 
-            fetch(apiUrl)
+        // Fetches and displays data from gitnodes.json in the node repository
+        async function fetchData() {
+            fetch('./gitnodes.json')
                 .then((response) => {
                     if (response.ok) {
                         return response.json();
@@ -68,26 +67,82 @@
         }
 
 
-        // Stub for user authentication
+        // User authentication using GitHub OAuth
         function authenticateUser() {
-            // TODO: Implement user authentication using GitHub OAuth
+            const authWindow = window.open(`https://github.com/login/oauth/authorize?client_id=${gitNodeData.github.clientId}&scope=repo`, "authWindow", "width=500,height=600");
+
+            window.addEventListener("message", async function (event) {
+                if (event.origin !== window.location.origin) return;
+                accessToken = event.data.accessToken;
+                authWindow.close();
+            });
         }
 
-        // Stub for updating gitnodes.json
-        function updateData() {
-            // TODO: Implement updating gitnodes.json with new data
+        // Updates gitnodes.json in the repository
+        async function updateData() {
+            if (!accessToken) {
+                await authenticateUser();
+                return;
+            }
+
+            const content = {
+                ...gitNodeData,
+                id: gitNodeData.id,
+                name: $("#node-name").val(),
+                type: $("#node-type").val(),
+                picture: $("#node-picture-url").val(),
+                description: $("#node-description").val()
+            };
+
+
+            const gitNodeJsonUrl = `https://api.github.com/repos/${gitNodeData.github.owner}/${gitNodeData.github.repo}/contents/gitnodes.json`;
+
+            const base64Content = btoa(JSON.stringify(content, null, 2));
+
+            // get current file info (needed to update the file)
+            const fileInfoResponse = await fetch(gitNodeJsonUrl, {
+                headers: { "Authorization": `token ${accessToken}` }
+            });
+
+            if (!fileInfoResponse.ok) {
+                console.error("Error fetching file info:", fileInfoResponse.statusText);
+                return;
+            }
+
+            const fileInfo = await fileInfoResponse.json();
+            const currentSha = fileInfo.sha;
+
+            // update the file
+            const updateResponse = await fetch(jsonUrl, {
+                method: "PUT",
+                headers: {
+                    "Authorization": `token ${accessToken}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    message: "Update gitnodes.json",
+                    content: base64Content,
+                    sha: currentSha
+                })
+            });
+
+            if (updateResponse.ok) {
+                console.log("Successfully updated gitnodes.json");
+            } else {
+                console.error("Error updating file:", updateResponse.statusText);
+            }
         }
 
         // Initialize the page
-        $(document).ready(function() {
+        $(document).ready(function () {
             fetchData();
-            authenticateUser();
 
             // Attach the updateData function to the update button
-            $("#update-button").click(function() {
+            $("#update-button").click(function () {
                 updateData();
             });
         });
     </script>
 </body>
+
 </html>

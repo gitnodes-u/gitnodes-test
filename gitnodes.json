@@ -1,7 +1,14 @@
     {
         "id": "https://github.com/gitnodes-u/gitnodes-test",
+        "host": "github.com",
+        "github": {
+            "owner": "gitnodes-u",
+            "repo": "gitnodes-test",
+            "branch": "master",
+            "clientId": "Iv1.2fbfbc6a3be6007b"
+        },
         "name": "Sample GitNode",
-        "type": "https://github.com/gitnodes-u/gitnodes-test/blob/main/node-type.json",
+        "type": "https://github.com/gitnodes-u/gitnodes-types:user",
         "picture": "https://source.unsplash.com/random/200x200",
         "description": "This is a sample GitNode for demonstration purposes."
     }
