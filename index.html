@@ -74,7 +74,9 @@
 
                 window.addEventListener("message", async function (event) {
                     if (event.origin !== window.location.origin) return;
-                    accessToken = event.data.accessToken;
+                    accessToken = event.data.code;
+                    console.log("Access token:", accessToken);
+                    authWindow.close();
                     resolve();
                 });
                 const checkWindowClosed = setInterval(() => {
@@ -112,6 +114,8 @@
             const gitNodeJsonUrl = `https://api.github.com/repos/${gitNodeData.github.owner}/${gitNodeData.github.repo}/contents/gitnodes.json`;
 
             const base64Content = btoa(JSON.stringify(content, null, 2));
+
+            console.log("Access token 2:", accessToken);
 
             // get current file info (needed to update the file)
             const fileInfoResponse = await fetch(gitNodeJsonUrl, {
