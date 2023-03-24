@@ -2,6 +2,6 @@
         "id": "https://github.com/gitnodes-u/gitnodes-test",
         "name": "Sample GitNode",
         "type": "https://github.com/gitnodes-u/gitnodes-test/blob/main/node-type.json",
-        "picture": "https://source.unsplash.com/random",
+        "picture": "https://source.unsplash.com/random/200x200",
         "description": "This is a sample GitNode for demonstration purposes."
     }
