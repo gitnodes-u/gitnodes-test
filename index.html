@@ -37,10 +37,36 @@
         </form>
     </div>
     <script>
-        // Stub for fetching and displaying data from gitnodes.json
+        // fetches and displays data from gitnodes.json in the node repository
         function fetchData() {
-            // TODO: Implement fetching data from gitnodes.json
+            // The owner and repository name should be set according to your specific repository
+            const owner = "gitnodes-u";
+            const repo = "gitnodes-test";
+            const fileName = "gitnodes.json";
+            const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${fileName}`;
+
+            fetch(apiUrl)
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error("Failed to fetch data");
+                    }
+                })
+                .then((data) => {
+                    const content = JSON.parse(atob(data.content));
+
+                    $("#node-id").val(content.id);
+                    $("#node-name").val(content.name);
+                    $("#node-type").val(content.type);
+                    $("#node-picture-url").val(content.picture);
+                    $("#node-description").val(content.description);
+                })
+                .catch((error) => {
+                    console.error("Error fetching data:", error);
+                });
         }
+
 
         // Stub for user authentication
         function authenticateUser() {
