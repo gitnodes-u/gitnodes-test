@@ -74,7 +74,7 @@
 
                 window.addEventListener("message", async function (event) {
                     if (event.origin !== window.location.origin) return;
-                    accessToken = event.data.code;
+                    accessToken = event.data.accessToken;
                     resolve();
                 });
                 const checkWindowClosed = setInterval(() => {
