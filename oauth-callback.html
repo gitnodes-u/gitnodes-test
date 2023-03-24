@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OAuth Callback</title>
+    <script>
+        function extractCodeFromUrl() {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const code = urlParams.get("code");
+            return code;
+        }
+
+        function sendMessageToParentWindow(code) {
+            window.opener.postMessage({ code: code }, window.location.origin);
+        }
+
+        function closeWindow() {
+            window.close();
+        }
+
+        function main() {
+            const code = extractCodeFromUrl();
+            sendMessageToParentWindow(code);
+            closeWindow();
+        }
+
+        main();
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

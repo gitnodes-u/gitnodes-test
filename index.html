@@ -69,20 +69,34 @@
 
         // User authentication using GitHub OAuth
         function authenticateUser() {
-            const authWindow = window.open(`https://github.com/login/oauth/authorize?client_id=${gitNodeData.github.clientId}&scope=repo`, "authWindow", "width=500,height=600");
+            return new Promise((resolve, reject) => {
+                const authWindow = window.open(`https://github.com/login/oauth/authorize?client_id=${gitNodeData.github.clientId}&scope=repo`, "authWindow", "width=500,height=600");
 
-            window.addEventListener("message", async function (event) {
-                if (event.origin !== window.location.origin) return;
-                accessToken = event.data.accessToken;
-                authWindow.close();
+                window.addEventListener("message", async function (event) {
+                    if (event.origin !== window.location.origin) return;
+                    accessToken = event.data.code;
+                    resolve();
+                });
+                const checkWindowClosed = setInterval(() => {
+                    if (authWindow.closed) {
+                        clearInterval(checkWindowClosed);
+                        if (!accessToken) {
+                            reject('User closed the authentication window without authenticating.');
+                        }
+                    }
+                }, 100);
             });
         }
 
         // Updates gitnodes.json in the repository
         async function updateData() {
             if (!accessToken) {
-                await authenticateUser();
-                return;
+                try {
+                    await authenticateUser();
+                } catch (error) {
+                    console.error('Authentication failed:', error);
+                    return;
+                }
             }
 
             const content = {
