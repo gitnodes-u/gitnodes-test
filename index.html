@@ -76,7 +76,7 @@
                     if (event.origin !== window.location.origin) return;
                     accessToken = event.data.code;
                     console.log("Access token:", accessToken);
-                    authWindow.close();
+                    //authWindow.close();
                     resolve();
                 });
                 const checkWindowClosed = setInterval(() => {
