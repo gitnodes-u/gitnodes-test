@@ -42,7 +42,7 @@
         const gitNodeData = {};
         const accessToken = '';
 
-        // Fetches and displays data from gitnodes.json in the node repository
+        // Fetches and displays data from the published gitnodes.json
         async function fetchData() {
             fetch('./gitnodes.json')
                 .then((response) => {
@@ -53,7 +53,7 @@
                     }
                 })
                 .then((data) => {
-                    const content = JSON.parse(atob(data.content));
+                    const content = data;
 
                     $("#node-id").val(content.id);
                     $("#node-name").val(content.name);
