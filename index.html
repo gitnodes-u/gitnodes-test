@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitNodes Editor</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>GitNodes Editor</h2>
+        <form id="gitnodes-form">
+            <div class="form-group">
+                <label for="node-id">ID:</label>
+                <input type="text" class="form-control" id="node-id" readonly>
+            </div>
+            <div class="form-group">
+                <label for="node-name">Name:</label>
+                <input type="text" class="form-control" id="node-name">
+            </div>
+            <div class="form-group">
+                <label for="node-type">Type:</label>
+                <input type="text" class="form-control" id="node-type">
+            </div>
+            <div class="form-group">
+                <label for="node-picture-url">Picture URL:</label>
+                <input type="text" class="form-control" id="node-picture-url">
+            </div>
+            <div class="form-group">
+                <label for="node-description">Description:</label>
+                <textarea class="form-control" id="node-description" rows="3"></textarea>
+            </div>
+            <button type="button" class="btn btn-primary" id="update-button">Update</button>
+        </form>
+    </div>
+    <script>
+        // Stub for fetching and displaying data from gitnodes.json
+        function fetchData() {
+            // TODO: Implement fetching data from gitnodes.json
+        }
+
+        // Stub for user authentication
+        function authenticateUser() {
+            // TODO: Implement user authentication using GitHub OAuth
+        }
+
+        // Stub for updating gitnodes.json
+        function updateData() {
+            // TODO: Implement updating gitnodes.json with new data
+        }
+
+        // Initialize the page
+        $(document).ready(function() {
+            fetchData();
+            authenticateUser();
+
+            // Attach the updateData function to the update button
+            $("#update-button").click(function() {
+                updateData();
+            });
+        });
+    </script>
+</body>
+</html>
