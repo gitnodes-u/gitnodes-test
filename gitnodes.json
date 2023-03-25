@@ -1,14 +1,1 @@
-    {
-        "id": "https://github.com/gitnodes-u/gitnodes-test",
-        "host": "github.com",
-        "github": {
-            "owner": "gitnodes-u",
-            "repo": "gitnodes-test",
-            "branch": "master",
-            "clientId": "292db3b7d030b4620aa9"
-        },
-        "name": "Sample GitNode",
-        "type": "https://github.com/gitnodes-u/gitnodes-types:user",
-        "picture": "https://source.unsplash.com/random/200x200",
-        "description": "This is a sample GitNode for demonstration purposes."
-    }
+{"id":"https://github.com/gitnodes-u/gitnodes-test","host":"github.com","github":{"owner":"gitnodes-u","repo":"gitnodes-test","clientId":"292db3b7d030b4620aa9","installationId":"35661182","apiUrl":"http://localhost:3000"},"name":"My Node","type":"https://github.com/gitnodes-u/gitnodes-types:user","picture":"https://source.unsplash.com/random/200x200","description":"This is a sample node for demonstration purposes. 2"}
