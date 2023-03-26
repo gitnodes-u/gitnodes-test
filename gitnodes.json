@@ -6,7 +6,7 @@
         "repo": "gitnodes-test",
         "clientId": "292db3b7d030b4620aa9",
         "installationId": "35661182",
-        "apiUrl": "http://localhost:3000"
+        "apiUrl": "https://tiny-gold-skunk-belt.cyclic.app"
     },
     "name": "My Node",
     "type": "https://github.com/gitnodes-u/gitnodes-types:user",
