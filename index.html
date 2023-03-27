@@ -67,7 +67,7 @@
 
         // Updates gitnodes.json in the repository
         async function updateData() {
-            const content = {
+            const fileContent = {
                 ...gitNodeData,
                 id: gitNodeData.id,
                 name: $("#node-name").val(),
@@ -75,18 +75,27 @@
                 picture: $("#node-picture-url").val(),
                 description: $("#node-description").val()
             }
+            const file = {
+                path: "gitnodes.json",
+                content: fileContent
+            };
+            const github = gitNodeData.github;
+            const message = "Update gitnodes.json";
+            const body = JSON.stringify({
+                files: [file],
+                github: github,
+                message: message
+            });
 
             console.log("Updating gitnodes.json...");
-            console.log(`Calling ${gitNodeData.github.apiUrl}/update`);
-            console.log("Payload: ", JSON.stringify(content, null, 2));
-            const updateResponse = await fetch(`${gitNodeData.github.apiUrl}/update`, {
-                method: "POST",
+            console.log(`Calling ${gitNodeData.github.apiUrl}/nodes`);
+            console.log("Payload: ", body);
+            const updateResponse = await fetch(`${gitNodeData.github.apiUrl}/nodes`, {
+                method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({
-                    content: content
-                })
+                body
             });
 
             if (updateResponse.ok) {
